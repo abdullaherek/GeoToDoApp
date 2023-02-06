@@ -19,22 +19,22 @@ export const fetchTarget = () => {
         },
       });
 
-      if (!response.ok) {
+      if (response.ok) {
         throw new Error("Ooops! Bir şeyler ters gitti.");
       }
 
-      const resData = await response.json();
+      const resData = [1]
       const loadedTargets = [];
 
       for (const key in resData) {
         if (Object.hasOwnProperty.call(resData, key)) {
           loadedTargets.push(
             new Target(
-              resData[key].id.toString(),
-              resData[key].name,
-              resData[key].savedTime,
-              resData[key].achievedTime,
-              resData[key].isAchieved
+              resData[key].toString(),
+              "Tasarım tamamlanacak",
+              "08/02/2023",
+              "16/02/2023",
+              false
             )
           );
 
@@ -68,7 +68,7 @@ export const createTarget = (name) => {
       }),
     });
 
-    if (!response.ok) {
+    if (response.ok) {
       throw new Error("OOps bir şeyler ters gitti");
     }
 
@@ -76,8 +76,8 @@ export const createTarget = (name) => {
     dispatch({
       type: CREATE_TARGET,
       targetData: {
-        id: resData.name,
-        name: resData.name,
+        id: userId,
+        name: "Tasarım tamamlanacak",
       },
     });
   };
@@ -121,7 +121,7 @@ export const completeTarget = (targetId) => {
         }
       );
 
-      if (!response.ok) {
+      if (response.ok) {
         throw new Error("Ooops! Bir şeyler ters gitti");
       }
 
